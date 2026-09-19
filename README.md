@@ -8,7 +8,7 @@
 
 > **Notes2Cards** converts lecture slides, handwritten notes, and PDF textbooks into study-ready Anki flashcards with embedded diagram extractions, active recall prompts, and cloze deletions.
 
-This repository contains the **Frontend Interface & UI Architecture Showcase** prepared for portfolio demonstration and the Google Developer Groups (GDG) college tech showcase.
+This repository contains the **Frontend Interface & UI Architecture Showcase** prepared for portfolio demonstration and showcase.
 
 ---
 
