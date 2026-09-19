@@ -1,0 +1,29 @@
+{
+  "name": "notes2cards",
+  "short_name": "notes2cards",
+  "description": "Turn your study notes into Anki flashcards instantly with AI",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#121218",
+  "theme_color": "#5865F2",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/app-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

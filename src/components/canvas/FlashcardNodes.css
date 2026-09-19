@@ -1,0 +1,189 @@
+/* ─── STRICTLY SCOPED NODE ARCHITECTURE ────────────────────────────────────
+   Every selector is prefixed with .gn-wrapper to prevent ANY leakage
+   into the landing page, auth pages, or global layout.
+   ──────────────────────────────────────────────────────────────────────────── */
+
+.gn-wrapper {
+  position: relative;
+  width: 320px;
+  z-index: 1;
+  font-family: 'Outfit', sans-serif;
+  contain: layout style;  /* Perf: scope layout/style invalidations */
+}
+
+/* Base state for all glows (Hidden by default) */
+.gn-wrapper::after {
+  content: "";
+  position: absolute;
+  inset: -6px;       /* Pulls the glow evenly outside the box */
+  z-index: -1;
+  border-radius: 20px;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  filter: blur(25px); /* Soft feathering */
+  will-change: transform, opacity;  /* Perf: promote to own GPU layer */
+  backface-visibility: hidden;       /* Perf: force layer isolation */
+}
+
+/* ─── THE CONTROLLED VARIATION GLOWS (LAYER 1) ─────────────────────────── */
+
+/* 1. Input Node Glow */
+.gn-wrapper.glow-input::after {
+  background: linear-gradient(60deg, #6DB5FF, #FF5DE7, #0A0A0A);
+  background-size: 200% 200%;
+  opacity: 0.7;
+  animation: gnGradientFlow 4s ease infinite;
+}
+
+/* 2. Processing Node Glow (The signature gradient) */
+.gn-wrapper.glow-processing::after {
+  background: linear-gradient(60deg, #FF5DE7, #6DB5FF, #FEFA3D);
+  background-size: 200% 200%;
+  opacity: 0.85;
+  animation: gnGradientFlow 6s ease infinite;
+}
+
+/* 3. Output Node Glow */
+.gn-wrapper.glow-output::after {
+  background: linear-gradient(60deg, #00FF88, #6DB5FF, #0A0A0A);
+  background-size: 200% 200%;
+  opacity: 0.8;
+  animation: gnGradientFlow 5s ease infinite;
+}
+
+/* Persistent Ambient Glow for completed nodes
+   ⚠ Must come AFTER glow-* classes so it overrides opacity/animation
+   while inheriting the gradient background from the glow-* class */
+.gn-wrapper.is-completed::after {
+  opacity: 0.25;  /* Dims down, but stays visible */
+  animation: gnGradientFlow 10s ease infinite; /* Slows down */
+}
+
+@keyframes gnGradientFlow {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ─── THE FROSTED GLASS & INNER BOX (LAYERS 2 & 3) ─────────────────────── */
+
+.gn-wrapper .gn-frosted {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  will-change: transform;             /* Perf: promote frosted layer to GPU */
+  transform: translateZ(0);           /* Perf: ensure layer creation */
+}
+
+.gn-wrapper .gn-frosted::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  opacity: 0.4;
+  z-index: 0;
+  /* The subtle noise texture */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.1'/%3E%3C/svg%3E");
+}
+
+/* ─── TYPOGRAPHY & INNER ELEMENTS ────────────────────────────────────────── */
+
+.gn-wrapper .gn-inner {
+  position: relative;
+  z-index: 1;
+  background: #0A0A0A;
+  border-radius: 10px;
+  padding: 24px; /* Slightly more breathing room inside */
+  box-shadow: inset 0 1px 4px rgba(255,255,255,0.05);
+}
+
+.gn-wrapper .gn-label {
+  font-size: 0.85rem; /* Increased from 0.65rem */
+  text-transform: uppercase;
+  letter-spacing: 0.08em; /* Reduced from 0.15em for better readability */
+  font-weight: 700; /* Made bolder */
+  color: #FFFFFF; /* Pure white to stand out */
+  margin: 0 0 16px 0;
+  display: block;
+}
+
+/* ─── DROPZONE ──────────────────────────────────────────────────────────── */
+
+.gn-wrapper .gn-dropzone {
+  border: 1px dashed rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  padding: 24px 12px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: rgba(255, 255, 255, 0.01);
+}
+
+.gn-wrapper .gn-dropzone:hover {
+  border-color: rgba(109, 181, 255, 0.5);
+  background: rgba(109, 181, 255, 0.04);
+}
+
+/* ─── HANDLES ───────────────────────────────────────────────────────────── */
+
+.gn-wrapper .gn-handle {
+  width: 10px !important;
+  height: 10px !important;
+  background: #0A0A0A !important;
+  border: 2px solid #6DB5FF !important;
+}
+
+/* ─── GENERATION LOADING ANIMATIONS ─────────────────────────────────────── */
+
+.gn-progress-track {
+  width: 100%;
+  height: 3px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.gn-progress-fill {
+  height: 100%;
+  width: 40%;
+  background: linear-gradient(90deg, transparent, #6DB5FF, #FF5DE7, transparent);
+  border-radius: 2px;
+  animation: gnShimmer 1.8s ease-in-out infinite;
+}
+
+@keyframes gnShimmer {
+  0%   { transform: translateX(-150%); }
+  100% { transform: translateX(350%); }
+}
+
+.gn-file-spinner {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border: 2px solid rgba(109, 181, 255, 0.3);
+  border-top-color: #6DB5FF;
+  border-radius: 50%;
+  animation: gnSpin 0.8s linear infinite;
+}
+
+@keyframes gnSpin {
+  to { transform: rotate(360deg); }
+}
+
+/* ─── LOADING ORB PULSE (ProcessingNode loading state) ──────────────────── */
+
+@keyframes gnOrbPulse {
+  0%   { transform: scale(1);    box-shadow: 0 0 20px rgba(109,181,255,0.4); opacity: 1; }
+  50%  { transform: scale(1.15); box-shadow: 0 0 50px rgba(255,93,231,0.6); opacity: 0.85; }
+  100% { transform: scale(1);    box-shadow: 0 0 20px rgba(109,181,255,0.4); opacity: 1; }
+}

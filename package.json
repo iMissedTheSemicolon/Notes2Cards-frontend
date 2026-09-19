@@ -1,0 +1,43 @@
+{
+  "name": "notes2cards-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "@phosphor-icons/react": "^2.1.10",
+    "@studio-freight/react-lenis": "^0.0.47",
+    "@use-gesture/react": "^10.3.1",
+    "@vercel/speed-insights": "^2.0.0",
+    "@xyflow/react": "^12.11.0",
+    "anki-apkg-export": "^4.0.3",
+    "fast-png": "^8.0.0",
+    "file-type": "^22.0.1",
+    "framer-motion": "^12.40.0",
+    "jszip": "^3.10.1",
+    "lucide-react": "^1.17.0",
+    "next": "16.2.7",
+    "pdf-lib": "^1.17.1",
+    "pdfjs-dist": "^6.1.200",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "react-dropzone": "^15.0.0",
+    "sql.js": "^1.14.1",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@types/sql.js": "^1.4.11",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.7",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}

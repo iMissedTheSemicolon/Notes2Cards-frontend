@@ -1,0 +1,64 @@
+# notes2cards
+
+> notes2cards is an AI-powered Anki flashcard generator that turns any study material into ready-to-import Anki decks (.apkg) in seconds.
+
+## Overview
+notes2cards uses Google Gemini AI to convert PDFs, PowerPoints, images, and text notes into high-quality Anki flashcards with support for Q&A cards and cloze deletions. It is used by 10,000+ students worldwide including medical, law, STEM, language learners, and certification candidates.
+
+## Core Features
+- Upload PDFs (up to 80 pages), PowerPoints, or images
+- AI-generated Anki flashcards with Q&A and cloze deletion support
+- Direct .apkg export — import straight into Anki desktop or AnkiDroid
+- Smart image extraction from documents
+- Sub-deck organization for structured study
+- Spaced repetition optimized card generation
+- Free tier available (5 pages/month, 5-page file limit)
+
+## Pricing
+- **Free Plan**: $0/month — 5 pages/month, 5-page file limit, 5 generations/day
+- **Pro Monthly**: $5/month — 600 pages/month, 60-page files, unlimited generations
+- **Pro Yearly**: $32/year — Same as Pro Monthly, save ~46%
+- **Lifetime**: $69.99 one-time — 800 pages/month, 80-page files, yours forever
+- Regional pricing available for India, developing markets, and frontier economies
+
+## Target Users
+- Medical students (anatomy, pharmacology, pathology)
+- Law students (case briefs, statutes)
+- STEM students (formulas, definitions, concepts)
+- Language learners (vocabulary, grammar)
+- Certification candidates (AWS, CPA, bar exam)
+- Anyone who uses Anki for spaced repetition study
+
+## Pages
+
+### Main Pages
+- [Landing Page](https://notes2cards.study/): Product overview, features, pricing, testimonials
+- [App](https://notes2cards.study/app): The main flashcard generation application (requires login)
+- [Contact](https://notes2cards.study/contact): Feature requests, bug reports, and general inquiries
+
+### Authentication
+- [Sign Up](https://notes2cards.study/signup): Create an account with Google or email
+- [Log In](https://notes2cards.study/login): Log into your account
+
+### Legal
+- [Privacy Policy](https://notes2cards.study/privacy): How we collect, use, and protect your data
+- [Terms of Service](https://notes2cards.study/terms): Terms governing use of notes2cards
+- [Refund Policy](https://notes2cards.study/refunds): Refund and returns policy for digital purchases
+
+## Privacy & Data Handling
+- Files uploaded by users are deleted immediately after deck generation
+- No user data is used for model training
+- Generation logs (token counts and metadata only) retained for quota calibration
+- GDPR compliant — users can request data deletion via contact page
+- All connections encrypted via HTTPS
+
+## Permissions
+User-agent: *
+Allow: /
+Disallow: /api/ (API routes, no public content)
+Disallow: /app/ (authenticated app, requires login)
+Sitemap: https://notes2cards.study/sitemap.xml
+
+## Contact
+- Website: https://notes2cards.study/contact
+- Creator: notes2cards team

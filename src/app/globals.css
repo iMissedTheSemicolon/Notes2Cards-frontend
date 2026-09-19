@@ -1,0 +1,242 @@
+/* ─── TAILWIND v4 — single import replaces @tailwind base/components/utilities */
+@import "tailwindcss";
+
+/* ─── CSS VARIABLES (DARK MODE — DEFAULT) ────────────────────────────────────── */
+:root {
+  /* Core */
+  --background:      #0a0a0a;
+  --foreground:      #ffffff;
+  --bg-canvas:       #0D0D0D;
+  --color-surface:   #111111;
+  --color-bg:        #0A0A0A;
+
+  /* Borders */
+  --border-node:     rgba(255, 255, 255, 0.08);
+  --color-border:    rgba(255, 255, 255, 0.06);
+
+  /* Text */
+  --text-primary:    #FFFFFF;
+  --text-secondary:  rgba(255, 255, 255, 0.6);
+  --text-muted:      rgba(255, 255, 255, 0.35);
+  --color-text-1:    #FFFFFF;
+  --color-text-2:    rgba(255, 255, 255, 0.5);
+  --color-text-3:    rgba(255, 255, 255, 0.25);
+
+  /* Brand palette */
+  --brand-indigo: #5865F2;  /* notes2cards primary brand colour */
+  --cyan:        #6DB5FF;
+  --yellow:      #FEFA3D;
+  --pink:        #FF5DE7;
+  --green:       #00FF88;
+
+  /* Glow aliases used via var() throughout LandingPageClient */
+  --glow-blue:   #6DB5FF;
+  --glow-cyan:   #6DB5FF;
+  --glow-yellow: #FEFA3D;
+  --glow-pink:   #FF5DE7;
+  --glow-green:  #00FF88;
+  --glow-red:    #FF4D4D;
+
+  /* Modal / Card surfaces */
+  --surface-modal: #0D0D0D;
+  --surface-card:  rgba(255, 255, 255, 0.02);
+  --border-subtle: rgba(255, 255, 255, 0.08);
+}
+
+/* ─── LIGHT MODE OVERRIDES ────────────────────────────────────────────────────
+   Applied when <html data-theme="light"> is set by SettingsModal.
+   Dark is always the default — this only activates on explicit toggle.
+   ──────────────────────────────────────────────────────────────────────────── */
+[data-theme="light"] {
+  --background:      #F0F2F5;
+  --foreground:      #0A0A0A;
+  --bg-canvas:       #EAEEF3;
+  --color-surface:   #FFFFFF;
+  --color-bg:        #F0F2F5;
+
+  --border-node:     rgba(0, 0, 0, 0.08);
+  --color-border:    rgba(0, 0, 0, 0.07);
+
+  --text-primary:    #0A0A0A;
+  --text-secondary:  rgba(10, 10, 10, 0.65);
+  --text-muted:      rgba(10, 10, 10, 0.4);
+  --color-text-1:    #0A0A0A;
+  --color-text-2:    rgba(10, 10, 10, 0.55);
+  --color-text-3:    rgba(10, 10, 10, 0.3);
+
+  /* Brand palette stays the same — just slightly adjusted for readability */
+  --brand-indigo: #5865F2;
+  --cyan:        #4299E8;
+  --yellow:      #E6C800;
+  --pink:        #D946CF;
+  --green:       #00C969;
+
+  --glow-blue:   #4299E8;
+  --glow-cyan:   #4299E8;
+  --glow-yellow: #E6C800;
+  --glow-pink:   #D946CF;
+  --glow-green:  #00C969;
+  --glow-red:    #E53E3E;
+
+  --surface-modal: #FFFFFF;
+  --surface-card:  rgba(0, 0, 0, 0.03);
+  --border-subtle: rgba(0, 0, 0, 0.1);
+}
+
+/* Apply light mode background/text to root elements */
+[data-theme="light"] body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+/* Light mode: fix ReactFlow canvas background */
+[data-theme="light"] .react-flow {
+  background: var(--background) !important;
+}
+
+/* Light mode: fix node boxes */
+[data-theme="light"] .gn-inner {
+  background: #FFFFFF !important;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255,255,255,0.9) !important;
+}
+
+[data-theme="light"] .gn-frosted {
+  background: rgba(255, 255, 255, 0.7) !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+[data-theme="light"] .gn-label {
+  color: #0A0A0A !important;
+}
+
+[data-theme="light"] .gn-dropzone {
+  border-color: rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Light mode: fix sidebar */
+[data-theme="light"] .sidebar-root {
+  background: rgba(245, 247, 250, 0.95) !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+/* ─── FONT SIZE OVERRIDES ─────────────────────────────────────────────────────
+   Applied via data-fontsize attribute on <html> by SettingsModal.
+   Uses rem so all relative units scale together.
+   ──────────────────────────────────────────────────────────────────────────── */
+[data-fontsize="small"] {
+  font-size: 14px;
+}
+
+[data-fontsize="medium"] {
+  font-size: 16px;
+}
+
+[data-fontsize="large"] {
+  font-size: 18px;
+}
+
+/* ─── BASE ───────────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px; /* default — overridden by [data-fontsize] above */
+}
+
+html, body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Lora', 'Outfit', serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  cursor: default;
+}
+
+/* ─── CURSOR / SELECTION CONTROL ─────────────────────────────────────────────
+   Suppress the blinking I-beam cursor on non-editable UI chrome.
+   Keep user-select:text only on elements where copying makes sense.
+   ──────────────────────────────────────────────────────────────────────────── */
+
+/* Non-editable UI chrome → default arrow cursor, no text selection */
+h1, h2, h3, h4, h5, h6,
+label, nav, header, footer,
+button, [role="button"],
+.gn-label, .gn-inner span, .noise-overlay,
+div[class*="badge"], div[class*="pill"], div[class*="tag"] {
+  user-select: none;
+  cursor: default;
+}
+
+/* Readable body copy → still selectable (so users can copy) */
+p, li, blockquote, td, th, pre, code {
+  user-select: text;
+  cursor: auto;
+}
+
+/* Interactive elements always get pointer */
+a[href], button, [role="button"], label[for], input[type="submit"], input[type="button"] {
+  cursor: pointer;
+}
+
+/* Inputs and textareas always get text cursor */
+input:not([type="submit"]):not([type="button"]):not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+textarea,
+[contenteditable="true"] {
+  cursor: text;
+  user-select: text;
+}
+
+/* Range / checkbox / radio */
+input[type="range"]    { cursor: grab; }
+input[type="range"]:active { cursor: grabbing; }
+input[type="checkbox"],
+input[type="radio"]    { cursor: pointer; }
+
+/* ─── REDUCED MOTION ─────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ─── SCROLLBAR ──────────────────────────────────────────────────────────────── */
+.custom-scrollbar::-webkit-scrollbar       { width: 4px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+.custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
+
+/* ─── MARQUEE ANIMATION ─────────────────────────────────────────────────────── */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ─── NOISE TEXTURE (SVG-based grain) ────────────────────────────────────────── */
+.noise-overlay {
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIj48ZmlsdGVyIGlkPSJuIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iMC44NSIgbnVtT2N0YXZlcz0iNCIgc3RpdGNoVGlsZXM9InN0aXRjaCIvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbHRlcj0idXJsKCNuKSIvPjwvc3ZnPg==");
+  opacity: 0.03;
+}
+
+/* ─── AURA GRADIENT ORBS (Landing Page) ─────────────────────────────────────────────
+   Static mesh-gradient blobs. No animation = zero GPU cost.
+   The visual richness comes from the radial-gradient itself, not motion.
+   ───────────────────────────────────────────────────────── */
+
+/* Very slow, compositor-only opacity breathing — costs almost nothing */
+@keyframes auraBreathe {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.7; }
+}
+
+.aura-orb-1 { animation: auraBreathe 12s ease-in-out infinite; }
+.aura-orb-2 { animation: auraBreathe 16s ease-in-out infinite; animation-delay: -5s; }
+.aura-orb-3 { animation: auraBreathe 20s ease-in-out infinite; animation-delay: -10s; }
+.aura-orb-4 { animation: auraBreathe 14s ease-in-out infinite; animation-delay: -7s; }
+
+/* ─── SELECTION ──────────────────────────────────────────────────────────────── */
+::selection {
+  background: #6DB5FF;
+  color: #000;
+}

@@ -1,0 +1,109 @@
+/* ── Glass Node – 3 Layer Architecture ────────────────────────────── */
+
+/* Layer 1 wrapper – positions the animated glow */
+.gn-wrapper {
+  position: relative;
+  width: 300px;
+  border-radius: 16px;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  contain: layout style;  /* Perf: scope layout/style invalidations */
+}
+
+/* Layer 1 – the animated conic glow via ::after */
+.gn-wrapper::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  z-index: -1;
+  border-radius: inherit;
+  background: conic-gradient(from 0deg, #10b981, #065f46, #34d399, #00FF88, #10b981);
+  filter: blur(24px);
+  opacity: 0.55;
+  animation: gnRotate 8s linear infinite;
+  will-change: transform;        /* Perf: promote to own GPU layer */
+  backface-visibility: hidden;    /* Perf: force layer isolation */
+}
+
+@keyframes gnRotate {
+  to { transform: rotate(360deg); }
+}
+
+/* Layer 2 – frosted glass shell */
+.gn-frosted {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  will-change: transform;             /* Perf: promote frosted layer to GPU */
+  transform: translateZ(0);           /* Perf: ensure layer creation */
+}
+
+/* SVG fractal noise overlay – gives the frosted-glass film-grain effect */
+.gn-frosted::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  z-index: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.09'/%3E%3C/svg%3E");
+}
+
+/* Layer 3 – solid opaque inner canvas */
+.gn-inner {
+  position: relative;
+  z-index: 1;
+  background: #0A0A0A;
+  border-radius: 10px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Typography */
+.gn-header {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+  color: #666;
+  margin: 0;
+}
+
+.gn-body {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: #EDEDED;
+  margin: 0;
+}
+
+/* Dropzone area */
+.gn-dropzone {
+  border: 1.5px dashed rgba(255,255,255,0.1);
+  border-radius: 10px;
+  padding: 20px 12px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+.gn-dropzone:hover {
+  border-color: rgba(16, 185, 129, 0.5);
+}
+
+/* React Flow handles */
+.gn-handle {
+  width: 10px !important;
+  height: 10px !important;
+  background: #10b981 !important;
+  border: 1.5px solid rgba(255,255,255,0.2) !important;
+  box-shadow: 0 0 10px rgba(16,185,129,0.9) !important;
+}
