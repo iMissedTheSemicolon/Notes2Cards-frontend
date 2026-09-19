@@ -40,32 +40,7 @@ Experience the full, production AI pipeline live at:
 
 ---
 
-## 🚀 Getting Started Locally
-
-To run the frontend showcase on your local machine:
-
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/iMissedTheSemicolon/Notes2Cards-frontend.git
-   cd Notes2Cards-frontend
-   ```
-
-2. **Install dependencies**:
-   ```bash
-   npm install
-   ```
-
-3. **Start the development server**:
-   ```bash
-   npm run dev
-   ```
-
-4. **Open in browser**:
-   Navigate to [http://localhost:3000](http://localhost:3000) to view the landing page, or [http://localhost:3000/app](http://localhost:3000/app) to explore the interactive canvas workspace!
-
----
-
 ## 📄 License & Intellectual Property
 
-Copyright (c) 2025-2026 Ramanjay Singh. All rights reserved.  
+Copyright (c) 2025-2026 Riddhimaan Singh. All rights reserved.  
 Source code is published strictly for educational review, demonstration, and college tech showcase purposes. Unauthorized commercial duplication or redistribution is strictly prohibited. See [LICENSE](LICENSE) for details.
